@@ -94,10 +94,10 @@ npm install --save-dev @testing-library/vue @testing-library/jest-dom msw axios
 Vitest를 포함하여 프로젝트를 만들었다면 `src/components/__tests__` 디렉토리가 자동으로 생성되어 있을 것입니다. 해당 디렉토리에 `PostsPage.test.ts` 파일을 생성합니다.
 
 ```tsx
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from "vitest";
 
-describe('PostsPage', () => {
-    it('should', () => {
+describe("PostsPage", () => {
+    it("should", () => {
         expect(true).toBeTruthy();
     });
 });
@@ -141,14 +141,14 @@ MSW(Mock Service Worker)를 사용하기 위한 설정을 진행합니다. MSW�
 
 ```tsx
 // src/mocks/handlers.ts
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse } from "msw";
 
 export const handlers = [
-    http.get('https://api.example.com/user', () => {
+    http.get("https://api.example.com/user", () => {
         return HttpResponse.json({
-            id: 'abc-123',
-            firstName: 'John',
-            lastName: 'Maverick',
+            id: "abc-123",
+            firstName: "John",
+            lastName: "Maverick",
         });
     }),
 ];
@@ -162,8 +162,8 @@ export const handlers = [
 
 ```tsx
 // src/mocks/node.ts
-import { setupServer } from 'msw/node';
-import { handlers } from './handlers.js';
+import { setupServer } from "msw/node";
+import { handlers } from "./handlers.js";
 
 export const server = setupServer(...handlers);
 ```
@@ -174,8 +174,8 @@ Vitest를 위한 Set Up 파일을 생성하고 `vitest.config.ts`에 추가합�
 
 ```tsx
 // vitest.setup.ts
-import { beforeAll, afterEach, afterAll } from 'vitest';
-import { server } from './mocks/node.js';
+import { beforeAll, afterEach, afterAll } from "vitest";
+import { server } from "./mocks/node.js";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -191,7 +191,7 @@ export default mergeConfig(
         test: {
             // ...
             globals: true, // <-- 추가
-            setupFiles: ['./vitest.setup.ts'], // <-- 추가
+            setupFiles: ["./vitest.setup.ts"], // <-- 추가
         },
     })
 );
@@ -204,15 +204,15 @@ export default mergeConfig(
 ```tsx
 // src/components/__test__/example.test.ts
 // @vitest-environment node
-import { test, expect } from 'vitest';
+import { test, expect } from "vitest";
 
-test('responds with the user', async () => {
-    const response = await fetch('https://api.example.com/user');
+test("responds with the user", async () => {
+    const response = await fetch("https://api.example.com/user");
 
     await expect(response.json()).resolves.toEqual({
-        id: 'abc-123',
-        firstName: 'John',
-        lastName: 'Maverick',
+        id: "abc-123",
+        firstName: "John",
+        lastName: "Maverick",
     });
 });
 ```
@@ -241,7 +241,7 @@ test('responds with the user', async () => {
 
 ```tsx
 // src/types/Post.ts
-export default interface Post {
+export interface Post {
     id: number;
     author: string;
     title: string;
@@ -253,9 +253,9 @@ export default interface Post {
 
 ```tsx
 // src/types/Posts.ts
-import type { Post } from './Post';
+import type { Post } from "./Post";
 
-export default interface Posts {
+export interface Posts {
     posts: Post[];
 }
 ```
@@ -266,16 +266,16 @@ export default interface Posts {
 
 ```tsx
 // src/api/post.api.ts
-import type { Post } from '@/types/Post';
-import type { Posts } from '@/types/Posts';
-import axios from 'axios';
+import type { Post } from "@/types/Post";
+import type { Posts } from "@/types/Posts";
+import axios from "axios";
 
 export const getPosts = async (): Promise<Posts> => {
-    return (await axios.get<Posts>('https://api.example.com/posts')).data;
+    return (await axios.get<Posts>("https://api.example.com/posts")).data;
 };
 
-export const createPost = async (data: Omit<Post, 'id'>) => {
-    await axios.post('https://api.example.com/posts', data);
+export const createPost = async (data: Omit<Post, "id">) => {
+    await axios.post("https://api.example.com/posts", data);
 };
 ```
 
@@ -295,32 +295,32 @@ export const createPost = async (data: Omit<Post, 'id'>) => {
 
 ```tsx
 // src/components/__tests__/PostsPage.test.vue
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from "vitest";
 
-describe('PostsPage', () => {
-    it('마운트 시 기존 게시물을 표시합니다', async () => {
+describe("PostsPage", () => {
+    it("마운트 시 기존 게시물을 표시합니다", async () => {
         // given
         // Mock 데이터
         const response: Posts = {
             posts: [
                 {
                     id: 0,
-                    author: 'author0',
-                    title: 'title0',
-                    content: 'content0',
+                    author: "author0",
+                    title: "title0",
+                    content: "content0",
                 },
                 {
                     id: 1,
-                    author: 'author1',
-                    title: 'title1',
-                    content: 'content1',
+                    author: "author1",
+                    title: "title1",
+                    content: "content1",
                 },
             ],
         };
 
         // 서버 응답 Mocking
         server.use(
-            http.get('https://api.example.com/posts', () =>
+            http.get("https://api.example.com/posts", () =>
                 HttpResponse.json(response)
             )
         );
@@ -330,12 +330,12 @@ describe('PostsPage', () => {
 
         // then
         await waitFor(() => {
-            expect(screen.findByText('author0')).toBeInTheDocument();
-            expect(screen.findByText('title0')).toBeInTheDocument();
-            expect(screen.findByText('content0')).toBeInTheDocument();
-            expect(screen.findByText('author1')).toBeInTheDocument();
-            expect(screen.findByText('title1')).toBeInTheDocument();
-            expect(screen.findByText('content1')).toBeInTheDocument();
+            expect(screen.findByText("author0")).toBeInTheDocument();
+            expect(screen.findByText("title0")).toBeInTheDocument();
+            expect(screen.findByText("content0")).toBeInTheDocument();
+            expect(screen.findByText("author1")).toBeInTheDocument();
+            expect(screen.findByText("title1")).toBeInTheDocument();
+            expect(screen.findByText("content1")).toBeInTheDocument();
         });
     });
 });
@@ -352,22 +352,22 @@ const response: Posts = {
     posts: [
         {
             id: 0,
-            author: 'author0',
-            title: 'title0',
-            content: 'content0',
+            author: "author0",
+            title: "title0",
+            content: "content0",
         },
         {
             id: 1,
-            author: 'author1',
-            title: 'title1',
-            content: 'content1',
+            author: "author1",
+            title: "title1",
+            content: "content1",
         },
     ],
 };
 
 // 서버 응답 Mocking
 server.use(
-    http.get('https://api.example.com/posts', () => HttpResponse.json(response))
+    http.get("https://api.example.com/posts", () => HttpResponse.json(response))
 );
 ```
 
@@ -406,9 +406,9 @@ await waitFor(() => {
 ```vue
 // src/components/PostsPage.vue
 <script setup lang="ts">
-import { getPosts } from '@/api/post.api';
-import type Post from '@/types/Post';
-import { onMounted, ref } from 'vue';
+import { getPosts } from "@/api/post.api";
+import type Post from "@/types/Post";
+import { onMounted, ref } from "vue";
 
 const posts = ref<Post[]>([]);
 
@@ -442,7 +442,7 @@ onMounted(async () => {
 ```vue
 // src/components/PostItem.vue
 <script setup lang="ts">
-import type Post from '@/types/Post';
+import type Post from "@/types/Post";
 
 defineProps<{ post: Post }>();
 </script>
@@ -460,10 +460,10 @@ defineProps<{ post: Post }>();
 
 ```vue
 <script setup lang="ts">
-import { getPosts } from '@/api/post.api';
-import type Post from '@/types/Post';
-import { onMounted, ref } from 'vue';
-import PostItem from './PostItem.vue';
+import { getPosts } from "@/api/post.api";
+import type Post from "@/types/Post";
+import { onMounted, ref } from "vue";
+import PostItem from "./PostItem.vue";
 
 const posts = ref<Post[]>([]);
 

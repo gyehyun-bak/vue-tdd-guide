@@ -1,5 +1,5 @@
-import type Post from "@/types/Post";
-import type Posts from "@/types/Posts";
+import type { Post } from "@/types/Post";
+import type { Posts } from "@/types/Posts";
 import axios from "axios";
 
 export const getPosts = async (): Promise<Posts> => {
