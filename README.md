@@ -4,12 +4,13 @@
 
 본 문서에는 다음과 같은 기술을 사용합니다:
 
--   Vue.js
--   Vitest
--   axios
--   testing-library/vue: 사용자 상호작용을 기반으로 컴포넌트의 행위를 테스트하도록 돕습니다.
--   testing-library/jest-dom: DOM 요소에 대해 보다 직관적이고 읽기 쉬운 matcher(`toBeInTheDocument()`, `toHaveTextContent()` 등)를 제공합니다.
--   mock-service-worker: 서버 응답 등의 네트워크 계층에 대한 mocking을 제공합니다.
+-   [**Vue.js**](https://vuejs.org/)
+-   [**vitest**](https://vitest.dev/)
+-   [**axios**](https://axios-http.com/kr/docs/intro)
+-   [**@testing-library/vue**](https://testing-library.com/docs/vue-testing-library/intro): 사용자 상호작용을 기반으로 컴포넌트의 행위를 테스트하도록 돕습니다.
+-   [**@testing-library/jest-dom**](https://testing-library.com/docs/ecosystem-jest-dom/): DOM 요소에 대해 보다 직관적이고 읽기 쉬운 matcher(`toBeInTheDocument()`, `toHaveTextContent()` 등)를 제공합니다.
+-   [**@testing-library/user-event**](https://testing-library.com/docs/user-event/intro/): 실제 사용자의 입력 및 행동(클릭, 입력 등)을 시뮬레이션하여 사용자 관점의 테스트를 작성할 수 있도록 돕습니다.
+-   [**msw**](https://mswjs.io/docs) **(Mock Service Worker)**: 서버 응답 등의 네트워크 계층에 대한 mocking을 제공합니다.
 
 ## TDD
 
@@ -86,7 +87,7 @@ Done.
 추가적으로 `testing-library/vue`, `testing-library/jest-dom`와 `mock-service-worker`, `axios`를 설치합니다.
 
 ```bash
-npm install --save-dev @testing-library/vue @testing-library/jest-dom msw axios
+npm install --save-dev @testing-library/vue @testing-library/user-event @testing-library/jest-dom msw axios
 ```
 
 ### Create Your First Test
@@ -371,7 +372,7 @@ server.use(
 );
 ```
 
-given은 테스트를 위한 전제조건입니다. 서버로부터 특정 API에 요청을 보냈을 때 MSW가 반환할 Mock 데이터를 정의하고 MSW를 통해 설정합니다.
+given은 테스트를 위한 전제 조건입니다. 서버로부터 특정 API에 요청을 보냈을 때 MSW가 반환할 Mock 데이터를 정의하고 MSW를 통해 설정합니다.
 
 -   when
 
@@ -407,7 +408,7 @@ await waitFor(() => {
 // src/components/PostsPage.vue
 <script setup lang="ts">
 import { getPosts } from "@/api/post.api";
-import type Post from "@/types/Post";
+import type { Post } from "@/types/Post";
 import { onMounted, ref } from "vue";
 
 const posts = ref<Post[]>([]);
@@ -442,7 +443,7 @@ onMounted(async () => {
 ```vue
 // src/components/PostItem.vue
 <script setup lang="ts">
-import type Post from "@/types/Post";
+import type { Post } from "@/types/Post";
 
 defineProps<{ post: Post }>();
 </script>
@@ -459,9 +460,10 @@ defineProps<{ post: Post }>();
 `PostsPage.vue`는 다음과 같이 수정합니다.
 
 ```vue
+// src/components/PostsPage.vue
 <script setup lang="ts">
 import { getPosts } from "@/api/post.api";
-import type Post from "@/types/Post";
+import type { Post } from "@/types/Post";
 import { onMounted, ref } from "vue";
 import PostItem from "./PostItem.vue";
 
@@ -517,6 +519,8 @@ onMounted(async () => {
 ## References
 
 -   서적 <테스트 주도 개발> - 켄트 벡
--   https://vuejs.org/guide/scaling-up/testing.html
 -   https://velog.io/@gyehyunbak/Spring-With-TDD
+-   https://vuejs.org/guide/scaling-up/testing.html
+-   https://vitest.dev/guide/
 -   https://testing-library.com/docs/vue-testing-library/intro
+-   https://mswjs.io/
