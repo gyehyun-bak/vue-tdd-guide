@@ -13,6 +13,8 @@ import { vi } from "vitest";
 vi.mock("vue-router");
 
 describe("PostsPage", () => {
+  const user = userEvent.setup();
+
   it("마운트 시 기존 게시물을 표시합니다", async () => {
     // given
     // Mock 데이터
@@ -52,16 +54,12 @@ describe("PostsPage", () => {
   it('"Create Post" 버튼을 클릭하면 /posts/create로 이동합니다', async () => {
     // given
     render(PostsPage);
-
     const createPostButton = screen.getByTestId("create-post-button");
-    const user = userEvent.setup();
 
     // when
     await user.click(createPostButton);
 
     // then
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith("/posts/create");
-    });
+    expect(mockPush).toHaveBeenCalledWith("/posts/create");
   });
 });
