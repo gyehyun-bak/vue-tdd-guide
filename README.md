@@ -5,7 +5,7 @@
 - [Getting Started](#Getting-Started)
 - [MSW 설정](#MSW-설정)
 - [TDD in Vue](#TDD-in-Vue)
-- [실전 예제: PostsPage.vue](#실전-예제-PostsPage.vue)
+- [실전 예제: PostsPage.vue](#실전-예제-PostsPagevue)
 - [Other Scenarios](#Other-Scenarios)
   - [Mocking Functions](#Mocking-Functions)
   - [UserEvent](#UserEvent)
