@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/vue";
 import "@testing-library/jest-dom";
 import { server } from "../../mocks/node";
 import PostsPage from "../PostsPage.vue";
-import type Posts from "../../types/Posts";
+import type { Posts } from "../../types/Posts";
 import { http, HttpResponse } from "msw";
 
 describe("PostsPage", () => {

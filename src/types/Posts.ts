@@ -1,5 +1,5 @@
-import type Post from "./Post";
+import type { Post } from "./Post";
 
-export default interface Posts {
+export interface Posts {
   posts: Post[];
 }

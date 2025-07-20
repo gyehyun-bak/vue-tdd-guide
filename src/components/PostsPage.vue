@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getPosts } from "@/api/post.api";
-import type Post from "@/types/Post";
+import type { Post } from "@/types/Post";
 import { onMounted, ref } from "vue";
 import PostItem from "./PostItem.vue";
 
