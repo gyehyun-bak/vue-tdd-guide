@@ -1,3 +1,16 @@
+## 목차
+
+- [Overview](#Overview)
+- [TDD](#TDD)
+- [Getting Started](#Getting-Started)
+- [MSW 설정](#MSW-설정)
+- [TDD in Vue](#TDD-in-Vue)
+- [실전 예제: PostsPage.vue](#실전-예제-PostsPage.vue)
+- [Other Scenarios](#Other-Scenarios)
+  - [Mocking Functions](#Mocking-Functions)
+  - [UserEvent](#UserEvent)
+- [References](#References)
+
 ## Overview
 
 해당 문서는 *KB IT’s Your Life*의 19반 2팀(계모임)에서 활용하기 위한 개발 가이드로 작성되었습니다. Vue를 활용한 프론트엔드 개발에서 TDD(Test Driven Development)를 적용할 수 있도록 TDD에 대한 간략한 소개와 Vue에서의 적용 방법을 기술합니다.
@@ -10,7 +23,7 @@
 -   [**@testing-library/vue**](https://testing-library.com/docs/vue-testing-library/intro): 사용자 상호작용을 기반으로 컴포넌트의 행위를 테스트하도록 돕습니다.
 -   [**@testing-library/jest-dom**](https://testing-library.com/docs/ecosystem-jest-dom/): DOM 요소에 대해 보다 직관적이고 읽기 쉬운 matcher(`toBeInTheDocument()`, `toHaveTextContent()` 등)를 제공합니다.
 -   [**@testing-library/user-event**](https://testing-library.com/docs/user-event/intro/): 실제 사용자의 입력 및 행동(클릭, 입력 등)을 시뮬레이션하여 사용자 관점의 테스트를 작성할 수 있도록 돕습니다.
--   [\*\*msw](https://mswjs.io/docs) (Mock Service Worker)\*\*: 서버 응답 등의 네트워크 계층에 대한 mocking을 제공합니다.
+-   [**msw**](https://mswjs.io/docs) (Mock Service Worker): 서버 응답 등의 네트워크 계층에 대한 mocking을 제공합니다.
 
 ## TDD
 
@@ -436,7 +449,7 @@ onMounted(async () => {
 
 컴포넌트는 `onMounted()`를 통해 마운트 시에 `getPosts()`를 호출하고, 내용을 화면에 단순히 표시합니다. 다시 테스트를 실행하면 테스트가 통과하는 것을 확인할 수 있습니다.
 
-![image.png](attachment:b397b0ed-c825-462d-9c7d-23e9da301338:image.png)
+<img width="1096" height="312" alt="image" src="https://github.com/user-attachments/assets/8eeb8883-f6f5-45ad-8e7f-f58d42267c5f" />
 
 ### Refactor
 
