@@ -309,7 +309,7 @@ export const createPost = async (data: Omit<Post, "id">) => {
 우선 실패하는 테스트를 작성합니다.
 
 ```tsx
-// src/components/__tests__/PostsPage.test.vue
+// src/components/__tests__/PostsPage.test.ts
 import { describe, expect, it } from "vitest";
 
 describe("PostsPage", () => {
