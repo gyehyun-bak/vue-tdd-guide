@@ -554,7 +554,9 @@ describe("PostsPage", () => { ... });
 // src/components/__tests__/PostsPage.test.ts
 
 // then
-expect(mockPush).toHaveBeenCalledWith("/posts/create");
+await waitFor(() => {
+  expect(mockPush).toHaveBeenCalledWith("/posts/create");
+});
 ```
 
 `vue-router` 의 `push()` 등에 대한 검증은 테스트에서 자주 사용되기 때문에, 별도의 파일로 모듈화할 수 있습니다. `vitest`는 기본적으로 `__mocks__` 폴더에 있는 파일을 테스트 실행 시 자동으로 불러옵니다.
@@ -586,7 +588,9 @@ vi.mock("vue-router");
 // 생략...
 
 // then
-expect(mockPush).toHaveBeenCalledWith("/posts/create");
+await waitFor(() => {
+  expect(mockPush).toHaveBeenCalledWith("/posts/create");
+});
 ```
 
 ### UserEvent
@@ -638,7 +642,9 @@ describe("PostsPage", () => {
     await user.click(createPostButton);
 
     // then
-    expect(mockPush).toHaveBeenCalledWith("/posts/create");
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith("/posts/create");
+    });
   });
 });
 ```
