@@ -178,7 +178,7 @@ export const handlers = [
 ```tsx
 // src/mocks/node.ts
 import { setupServer } from "msw/node";
-import { handlers } from "./handlers.js";
+import { handlers } from "./handlers.ts";
 
 export const server = setupServer(...handlers);
 ```
@@ -190,7 +190,7 @@ Vitest를 위한 Set Up 파일을 생성하고 `vitest.config.ts`에 추가합�
 ```tsx
 // vitest.setup.ts
 import { beforeAll, afterEach, afterAll } from "vitest";
-import { server } from "./mocks/node.js";
+import { server } from "./src/mocks/node.ts";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -309,7 +309,7 @@ export const createPost = async (data: Omit<Post, "id">) => {
 우선 실패하는 테스트를 작성합니다.
 
 ```tsx
-// src/components/__tests__/PostsPage.test.vue
+// src/components/__tests__/PostsPage.test.ts
 import { describe, expect, it } from "vitest";
 
 describe("PostsPage", () => {
