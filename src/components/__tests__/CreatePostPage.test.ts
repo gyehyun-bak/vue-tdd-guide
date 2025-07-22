@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/vue";
+import { render, screen, waitFor } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
 import { server } from "../../mocks/node";
@@ -41,10 +41,12 @@ describe("CreatePostPage", () => {
     await user.click(screen.getByTestId("save-button"));
 
     // then
-    expect(requestBody.author).toEqual(author);
-    expect(requestBody.title).toEqual(title);
-    expect(requestBody.content).toEqual(content);
-    expect(mockPush).toHaveBeenCalledWith("/posts");
+    await waitFor(() => {
+      expect(requestBody.author).toEqual(author);
+      expect(requestBody.title).toEqual(title);
+      expect(requestBody.content).toEqual(content);
+      expect(mockPush).toHaveBeenCalledWith("/posts");
+    });
   });
 
   it("Cancel 버튼 클릭 시 /posts로 이동", async () => {
@@ -55,7 +57,9 @@ describe("CreatePostPage", () => {
     await user.click(screen.getByTestId("cancel-button"));
 
     // then
-    expect(mockPush).toHaveBeenCalledWith("/posts");
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith("/posts");
+    });
   });
 
   it("입력값 중 하나라도 비어 있으면 이동하지 않음", async () => {
@@ -67,6 +71,8 @@ describe("CreatePostPage", () => {
     await user.click(screen.getByTestId("save-button"));
 
     // then
-    expect(mockPush).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockPush).not.toHaveBeenCalled();
+    });
   });
 });

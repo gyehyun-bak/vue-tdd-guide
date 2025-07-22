@@ -60,6 +60,8 @@ describe("PostsPage", () => {
     await user.click(createPostButton);
 
     // then
-    expect(mockPush).toHaveBeenCalledWith("/posts/create");
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith("/posts/create");
+    });
   });
 });
